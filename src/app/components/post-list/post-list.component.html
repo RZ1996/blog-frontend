@@ -1,0 +1,61 @@
+<div class="min-h-screen bg-gray-50">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow-sm border-b">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+      <a routerLink="/posts" class="text-xl font-bold text-blue-600">Blog App</a>
+      <div class="flex gap-3">
+        @if (isLoggedIn()) {
+          <a routerLink="/posts/new" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition">+ Nový článek</a>
+          <button (click)="logout()" class="text-gray-600 px-4 py-2 rounded-lg text-sm hover:bg-gray-100 transition">Odhlásit se</button>
+        } @else {
+          <a routerLink="/login" class="text-gray-600 px-4 py-2 rounded-lg text-sm hover:bg-gray-100 transition">Přihlásit se</a>
+        }
+      </div>
+    </div>
+  </nav>
+
+  <!-- Content -->
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-8">Články</h1>
+
+    @if (loading) {
+      <div class="text-center text-gray-500 py-12">Načítám...</div>
+    }
+
+    <div class="grid gap-6">
+      @for (post of posts; track post.id) {
+        <div class="bg-white rounded-xl shadow-sm border hover:shadow-md transition p-6">
+          <h2 class="text-xl font-bold text-gray-800 mb-2">
+            <a [routerLink]="['/posts', post.id]" class="hover:text-blue-600 transition">
+              {{ post.title }}
+            </a>
+          </h2>
+          <p class="text-gray-600 mb-4">{{ post.excerpt }}</p>
+          <div class="flex items-center gap-2 text-sm text-gray-400">
+            <span>{{ post.authorName }}</span>
+            <span>·</span>
+            <span>{{ post.createdAt | date:'dd.MM.yyyy' }}</span>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Pagination -->
+    <div class="flex justify-center items-center gap-4 mt-8">
+      <button
+        (click)="prevPage()"
+        [disabled]="currentPage === 0"
+        class="px-4 py-2 bg-white border rounded-lg text-sm disabled:opacity-40 hover:bg-gray-50 transition">
+        ← Předchozí
+      </button>
+      <span class="text-sm text-gray-500">Stránka {{ currentPage + 1 }} z {{ totalPages }}</span>
+      <button
+        (click)="nextPage()"
+        [disabled]="currentPage === totalPages - 1"
+        class="px-4 py-2 bg-white border rounded-lg text-sm disabled:opacity-40 hover:bg-gray-50 transition">
+        Další →
+      </button>
+    </div>
+  </div>
+</div>

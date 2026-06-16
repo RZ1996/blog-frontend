@@ -1,0 +1,74 @@
+<div class="min-h-screen bg-gray-50">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow-sm border-b">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+      <a routerLink="/posts" class="text-xl font-bold text-blue-600">Blog App</a>
+      <a routerLink="/posts" class="text-gray-600 text-sm hover:text-blue-600 transition">← Zpět</a>
+    </div>
+  </nav>
+
+  <div class="max-w-4xl mx-auto px-4 py-8">
+
+    @if (loading) {
+      <div class="text-center text-gray-500 py-12">Načítám...</div>
+    }
+
+    @if (post) {
+      <article class="bg-white rounded-xl shadow-sm border p-8">
+
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ post.title }}</h1>
+
+        <div class="flex items-center gap-2 text-sm text-gray-400 mb-6">
+          <span>{{ post.authorName }}</span>
+          <span>·</span>
+          <span>{{ post.createdAt | date:'dd.MM.yyyy' }}</span>
+          <span>·</span>
+          <span class="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs">{{ post.status }}</span>
+        </div>
+
+        @if (post.tags?.length > 0) {
+          <div class="flex gap-2 mb-6">
+            @for (tag of post.tags; track tag) {
+              <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">{{ tag }}</span>
+            }
+          </div>
+        }
+
+        <div class="text-gray-700 leading-relaxed text-lg whitespace-pre-wrap">
+          {{ post.content }}
+        </div>
+
+        @if (isLoggedIn()) {
+          <div class="flex gap-3 mt-8 pt-6 border-t">
+            @if (!confirmDelete) {
+              <a [routerLink]="['/posts', post.id, 'edit']"
+                class="bg-blue-50 text-blue-600 px-4 py-2 rounded-lg text-sm hover:bg-blue-100 transition">
+                Upravit článek
+              </a>
+              <button
+                (click)="confirmDelete = true"
+                class="bg-red-50 text-red-600 px-4 py-2 rounded-lg text-sm hover:bg-red-100 transition">
+                Smazat článek
+              </button>
+            } @else {
+              <span class="text-sm text-gray-600 self-center">Opravdu smazat?</span>
+              <button
+                (click)="deletePost()"
+                class="bg-red-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-red-700 transition">
+                Ano, smazat
+              </button>
+              <button
+                (click)="confirmDelete = false"
+                class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg text-sm hover:bg-gray-200 transition">
+                Zrušit
+              </button>
+            }
+          </div>
+        }
+
+      </article>
+    }
+
+  </div>
+</div>

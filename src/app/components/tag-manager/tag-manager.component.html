@@ -1,0 +1,46 @@
+<div class="min-h-screen bg-gray-50">
+
+  <nav class="bg-white shadow-sm border-b">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+      <a routerLink="/posts" class="text-xl font-bold text-blue-600">Blog App</a>
+      <a routerLink="/posts" class="text-gray-600 text-sm hover:text-blue-600 transition">← Zpět</a>
+    </div>
+  </nav>
+
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <div class="bg-white rounded-xl shadow-sm border p-8">
+
+      <h2 class="text-2xl font-bold text-gray-800 mb-6">Správa tagů</h2>
+
+      <div class="flex gap-3 mb-8">
+        <input
+          type="text"
+          [(ngModel)]="newTagName"
+          placeholder="Název nového tagu"
+          class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+          (click)="createTag()"
+          class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition font-medium">
+          Přidat
+        </button>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <div
+          *ngFor="let tag of tags"
+          class="flex items-center gap-2 px-3 py-1 bg-gray-100 rounded-full">
+          <span class="text-sm font-medium text-gray-700">{{ tag.name }}</span>
+          <button
+            (click)="deleteTag(tag.id)"
+            class="text-gray-400 hover:text-red-500 transition text-lg leading-none">
+            ×
+          </button>
+        </div>
+      </div>
+
+      <p *ngIf="tags.length === 0" class="text-gray-400 text-sm mt-4">Zatím žádné tagy.</p>
+
+    </div>
+  </div>
+</div>

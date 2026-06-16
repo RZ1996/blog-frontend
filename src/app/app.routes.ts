@@ -5,6 +5,7 @@ import { PostListComponent } from './components/post-list/post-list.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { PostCreateComponent } from './components/post-create/post-create.component';
 import { authGuard } from './guards/auth.guard';
+import { TagManagerComponent } from './components/tag-manager/tag-manager.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/posts', pathMatch: 'full' },
@@ -14,4 +15,5 @@ export const routes: Routes = [
   { path: 'posts/new', component: PostCreateComponent, canActivate: [authGuard] },
   { path: 'posts/:id', component: PostDetailComponent },
   { path: 'posts/:id/edit', component: PostCreateComponent, canActivate: [authGuard] },
+  { path: 'tags', component: TagManagerComponent, canActivate: [authGuard] },
 ];

@@ -6,6 +6,7 @@
       <a routerLink="/posts" class="text-xl font-bold text-blue-600">Blog App</a>
       <div class="flex gap-3">
         @if (isLoggedIn()) {
+          <a routerLink="/tags" class="text-gray-600 px-4 py-2 rounded-lg text-sm hover:bg-gray-100 transition">Správa tagů</a>
           <a routerLink="/posts/new" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition">+ Nový článek</a>
           <button (click)="logout()" class="text-gray-600 px-4 py-2 rounded-lg text-sm hover:bg-gray-100 transition">Odhlásit se</button>
         } @else {

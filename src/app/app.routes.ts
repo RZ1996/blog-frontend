@@ -8,7 +8,7 @@ import { authGuard } from './guards/auth.guard';
 import { TagManagerComponent } from './components/tag-manager/tag-manager.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/posts', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'posts', component: PostListComponent },
